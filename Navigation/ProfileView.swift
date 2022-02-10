@@ -16,9 +16,6 @@ class ProfileView: UIView {
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var contentTextView: UITextView!
     
-    
-    //self.mainNameLabel.text = "Yshastiy"
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
@@ -44,6 +41,5 @@ class ProfileView: UIView {
         }
         return view
     }
-    
-    //self.photoImageView.image = UIImage(named: "photoCat.jpg")
+
 }
