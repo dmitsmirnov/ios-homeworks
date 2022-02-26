@@ -12,12 +12,15 @@
 		0A6A5E4427B1B75C0087726F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4327B1B75C0087726F /* ViewController.swift */; };
 		0A6A5E4927B1B76A0087726F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4827B1B76A0087726F /* Assets.xcassets */; };
 		0A6A5E4C27B1B76A0087726F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4A27B1B76A0087726F /* LaunchScreen.storyboard */; };
-		0A96A8C027BA96700041A619 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A8BF27BA96700041A619 /* ProfileViewController.swift */; };
+		0A96A8C027BA96700041A619 /* _ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A8BF27BA96700041A619 /* _ProfileViewController.swift */; };
 		0A96A8C227BA96AD0041A619 /* FirstStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A96A8C127BA96AD0041A619 /* FirstStoryboard.storyboard */; };
 		0A96A8E827BD39600041A619 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A8E727BD39600041A619 /* FeedViewController.swift */; };
 		0A96A8EA27BD3BFD0041A619 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A8E927BD3BFD0041A619 /* TabBarController.swift */; };
 		0A96A8EC27BD5BFB0041A619 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A8EB27BD5BFB0041A619 /* PostViewController.swift */; };
 		0A96A8EE27BEA2CA0041A619 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A8ED27BEA2CA0041A619 /* InfoViewController.swift */; };
+		0A96A96727C3F4F60041A619 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */; };
+		0A96A96927C3F5300041A619 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96A96827C3F5300041A619 /* ProfileViewController.swift */; };
+		0AD979AE27C8DFB500ACC356 /* myPhoto.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0AD979AD27C8DFB500ACC356 /* myPhoto.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,12 +31,15 @@
 		0A6A5E4827B1B76A0087726F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A6A5E4B27B1B76A0087726F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A6A5E4D27B1B76A0087726F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A96A8BF27BA96700041A619 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0A96A8BF27BA96700041A619 /* _ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _ProfileViewController.swift; sourceTree = "<group>"; };
 		0A96A8C127BA96AD0041A619 /* FirstStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FirstStoryboard.storyboard; sourceTree = "<group>"; };
 		0A96A8E727BD39600041A619 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		0A96A8E927BD3BFD0041A619 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		0A96A8EB27BD5BFB0041A619 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		0A96A8ED27BEA2CA0041A619 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		0A96A96827C3F5300041A619 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0AD979AD27C8DFB500ACC356 /* myPhoto.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = myPhoto.jpeg; path = Navigation/myPhoto.jpeg; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				0A96A8ED27BEA2CA0041A619 /* InfoViewController.swift */,
+				0A96A96527C3F4CA0041A619 /* Profile */,
 				0A96A8EB27BD5BFB0041A619 /* PostViewController.swift */,
 				0A96A8E927BD3BFD0041A619 /* TabBarController.swift */,
 				0A6A5E3F27B1B75C0087726F /* AppDelegate.swift */,
@@ -76,10 +83,20 @@
 				0A6A5E4A27B1B76A0087726F /* LaunchScreen.storyboard */,
 				0A6A5E4D27B1B76A0087726F /* Info.plist */,
 				0A96A8E727BD39600041A619 /* FeedViewController.swift */,
-				0A96A8BF27BA96700041A619 /* ProfileViewController.swift */,
+				0A96A8BF27BA96700041A619 /* _ProfileViewController.swift */,
 				0A96A8C127BA96AD0041A619 /* FirstStoryboard.storyboard */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		0A96A96527C3F4CA0041A619 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0AD979AD27C8DFB500ACC356 /* myPhoto.jpeg */,
+				0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */,
+				0A96A96827C3F5300041A619 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD979AE27C8DFB500ACC356 /* myPhoto.jpeg in Resources */,
 				0A6A5E4C27B1B76A0087726F /* LaunchScreen.storyboard in Resources */,
 				0A6A5E4927B1B76A0087726F /* Assets.xcassets in Resources */,
 				0A96A8C227BA96AD0041A619 /* FirstStoryboard.storyboard in Resources */,
@@ -154,12 +172,14 @@
 			files = (
 				0A6A5E4427B1B75C0087726F /* ViewController.swift in Sources */,
 				0A6A5E4027B1B75C0087726F /* AppDelegate.swift in Sources */,
+				0A96A96927C3F5300041A619 /* ProfileViewController.swift in Sources */,
 				0A96A8EC27BD5BFB0041A619 /* PostViewController.swift in Sources */,
 				0A6A5E4227B1B75C0087726F /* SceneDelegate.swift in Sources */,
+				0A96A96727C3F4F60041A619 /* ProfileHeaderView.swift in Sources */,
 				0A96A8EA27BD3BFD0041A619 /* TabBarController.swift in Sources */,
 				0A96A8E827BD39600041A619 /* FeedViewController.swift in Sources */,
 				0A96A8EE27BEA2CA0041A619 /* InfoViewController.swift in Sources */,
-				0A96A8C027BA96700041A619 /* ProfileViewController.swift in Sources */,
+				0A96A8C027BA96700041A619 /* _ProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
