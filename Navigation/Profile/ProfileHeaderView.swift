@@ -116,13 +116,25 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.endEditing(true)
+    }
+    
     @objc private func buttonPressed() {
         print(self.label1.text!)
         self.label2.text = statusText
+        self.endEditing(true)
     }
     
     @objc private func statusTextChanged(_ textField: UITextField) {
         statusText = textField.text!
     }
+    
+//    @IBAction func hideKeyBoardButton(_ sender: Any) {
+//    self.view.endEditing(true)
+//
+//    }
+    
 }
 
