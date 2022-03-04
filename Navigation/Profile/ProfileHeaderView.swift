@@ -43,6 +43,8 @@ class ProfileHeaderView: UIView {
         let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         let heightButtonConstraint = self.setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         
+        #warning("не понял как получить frame картинки, что бы вычислить радиус для скругления картинки. Подскажите пожалуйста как его получить frame (bounds) определяется всегда как (0,0,0,0)")
+        // self.avatarImageView.layer.cornerRadius =  self.avatarImageView.frame.height / 2
         self.avatarImageView.layer.cornerRadius = 60
         
         NSLayoutConstraint.activate([
