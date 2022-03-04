@@ -91,29 +91,10 @@
                     <view key="view" contentMode="scaleToFill" id="CWX-Xh-YHU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wcy-jj-aa7">
-                                <rect key="frame" x="161" y="432.5" width="92" height="31"/>
-                                <color key="backgroundColor" name="AccentColor"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Show post"/>
-                                <connections>
-                                    <segue destination="mJi-Dc-Izc" kind="show" identifier="seguePost" id="qYu-sz-FqM"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="cLC-IC-zbf"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Wcy-jj-aa7" firstAttribute="centerX" secondItem="CWX-Xh-YHU" secondAttribute="centerX" id="SBv-ba-m77"/>
-                            <constraint firstItem="Wcy-jj-aa7" firstAttribute="centerY" secondItem="CWX-Xh-YHU" secondAttribute="centerY" id="lqP-cp-ScL"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HAN-yb-4tn"/>
-                    <connections>
-                        <outlet property="showPostButton" destination="Wcy-jj-aa7" id="D5V-CY-KUv"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWE-9h-lSA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
