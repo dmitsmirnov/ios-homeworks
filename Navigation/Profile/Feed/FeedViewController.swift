@@ -17,7 +17,9 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = "Лента"
+        self.view.backgroundColor = .white
+        
+        //self.navigationItem.title = "Лента"
         //self.showPostButton.layer.cornerRadius = 12
         
         self.view.addSubview(self.buttonsStackView)

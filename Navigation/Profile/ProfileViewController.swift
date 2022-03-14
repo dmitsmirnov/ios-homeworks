@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     private lazy var profileHeaderView: ProfileHeaderView = {
         let view = ProfileHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
         return view
     }()
     
@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController {
     private func setupView() {
         
         self.view.addSubview(self.profileHeaderView)
-        //self.view.backgroundColor = .green
+        self.view.backgroundColor = .white
         
         let topConstraint = self.profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
         let leadingConstraint = self.profileHeaderView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
