@@ -15,7 +15,7 @@ class ProfileHeaderView: UIView {
         
         super.layoutSubviews()
         
-        self.backgroundColor = .white
+        self.backgroundColor = .systemGray6
         
         self.addSubview(self.infoStackView)
         self.addSubview(self.setStatusButton)
@@ -42,11 +42,11 @@ class ProfileHeaderView: UIView {
         let topButtonConstraint = self.setStatusButton.topAnchor.constraint(equalTo: self.statusTextField.bottomAnchor, constant: 10)
         let leadingButtonConstraint = self.setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         let trailingButtonConstraint = self.setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16)
-        let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16)
         let heightButtonConstraint = self.setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         
         // self.avatarImageView.layer.cornerRadius =  self.avatarImageView.frame.height / 2
-        self.avatarImageView.layer.cornerRadius = 60
+        self.avatarImageView.layer.cornerRadius = 50
         
         NSLayoutConstraint.activate([
             topConstraint,

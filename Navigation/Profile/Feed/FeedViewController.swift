@@ -7,9 +7,6 @@
 
 import UIKit
 
-struct Post {
-    var title: String
-}
 
 class FeedViewController: UIViewController {
 
@@ -36,13 +33,13 @@ class FeedViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let someText = Post(title: "Some text")
-        
-        guard segue.identifier == "seguePost",
-                let seguePost = segue.destination as? PostViewController
-        else { return }
-        
-        seguePost.customText = someText.title
+//        let someText = Post(title: "Some text")
+//
+//        guard segue.identifier == "seguePost",
+//                let seguePost = segue.destination as? PostViewController
+//        else { return }
+//
+//        seguePost.customText = someText.title
         
     }
     

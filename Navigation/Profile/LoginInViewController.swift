@@ -109,7 +109,7 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         
         // отступ
         //mainStack.spacing = 10
-        #warning("Не удалось реализовать разделительную полоску между двумя textField")
+        //#warning("Не удалось реализовать разделительную полоску между двумя textField")
         
         mainStack.backgroundColor = .systemGray6
         return mainStack
@@ -156,7 +156,7 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
         //self.view.endEditing(true)
         self.scrollView.endEditing(true)
-        #warning("Перестала скрываться клавиатура при нажатии на любую часть экрана")
+        //#warning("Перестала скрываться клавиатура при нажатии на любую часть экрана")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -170,7 +170,7 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
 //        if self.scrollView.frame.origin.y == 0 {
 //            self.scrollView.frame.origin.y -= kbFrameSize!.height
 //        }
-        #warning("Не смог разобраться как получить высоту клавиатуры, которая может перекрывать элементы, а может и не перекрывать")
+        //#warning("Не смог разобраться как получить высоту клавиатуры, которая может перекрывать элементы, а может и не перекрывать")
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
         
     }
