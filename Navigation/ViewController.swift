@@ -8,11 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //self.titleLabel.text = "ну и хрень)"
+        // Do any additional setup after loading the view.
     }
+
+
 }
 
