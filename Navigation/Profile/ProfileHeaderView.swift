@@ -46,7 +46,7 @@ class ProfileHeaderView: UIView {
         let heightButtonConstraint = self.setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         
         // self.avatarImageView.layer.cornerRadius =  self.avatarImageView.frame.height / 2
-        self.avatarImageView.layer.cornerRadius = 60
+        //self.avatarImageView.layer.cornerRadius = 60
         
         NSLayoutConstraint.activate([
             topConstraint,
@@ -66,6 +66,16 @@ class ProfileHeaderView: UIView {
             heightButtonConstraint
         ].compactMap({ $0 }))
         
+        // скругление картинки вариант№1
+        // пересчитать фрейм картинки принудительно
+        self.avatarImageView.layoutIfNeeded()
+        self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.height / 2
+        
+        // скругление картинки вариант№2
+        // рассчитать только позиции находящиеся в стеке
+        //DispatchQueue.main.async {
+        //    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.height / 2
+        //}
     }
      
     private lazy var labelsStackView: UIStackView = {

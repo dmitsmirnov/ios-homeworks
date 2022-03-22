@@ -12,6 +12,7 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
         self.loginTextField.delegate = self
         self.passwordTextField.delegate = self
         self.configureSubview()
@@ -19,6 +20,13 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        
+        // hidden keyboard
+        self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(tap)))
+    }
+    
+    @objc func tap() {
+        view.endEditing(true)
     }
     
     private func configureSubview() {
@@ -152,35 +160,40 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         self.show(profileView, sender: .none)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        //self.view.endEditing(true)
-        self.scrollView.endEditing(true)
-        #warning("Перестала скрываться клавиатура при нажатии на любую часть экрана")
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
     
+    private func keyboardHideOrShow(notification: NSNotification) {
+        
+        #warning("Использовал код который вы рекомендовали, но все равно keyboard поднимается максимально наверх, а лого и во все пропадает")
+        
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            let contentOffset: CGPoint = notification.name == UIResponder.keyboardWillHideNotification
+                ? .zero : CGPoint(x: 0, y: keyboardHeight)
+            
+            //print(contentOffset)
+            //print(self.scrollView.contentOffset)
+            
+            self.scrollView.contentOffset = contentOffset
+        }
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
 
-//        let kbFrameSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-//        if self.scrollView.frame.origin.y == 0 {
-//            self.scrollView.frame.origin.y -= kbFrameSize!.height
-//        }
-        #warning("Не смог разобраться как получить высоту клавиатуры, которая может перекрывать элементы, а может и не перекрывать")
-        scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        keyboardHideOrShow(notification: notification)
         
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-//      if self.scrollView.frame.origin.y != 0 {
-//          self.scrollView.frame.origin.y = 0
-//      }
-        scrollView.contentOffset = CGPoint(x: 0, y: -47)
 
+        keyboardHideOrShow(notification: notification)
+        
     }
     
 }
