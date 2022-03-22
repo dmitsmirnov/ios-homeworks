@@ -12,46 +12,83 @@ class ProfileHeaderView: UIView {
     private var statusText: String = ""
     
     override func layoutSubviews() {
+        
         super.layoutSubviews()
         
-        self.addSubview(self.image)
-        self.image.topAnchor.constraint(equalTo: self.topAnchor, constant: 57).isActive = true
-        self.image.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
-        self.image.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        self.image.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        self.image.layer.cornerRadius = self.image.bounds.size.width / 2
-    
-        self.addSubview(self.button)
-        self.button.topAnchor.constraint(equalTo: self.image.bottomAnchor, constant: 30).isActive = true
-        self.button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
-        self.button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
-        self.button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.addSubview(self.infoStackView)
+        self.addSubview(self.setStatusButton)
         
-        self.addSubview(self.label1)
-        self.label1.topAnchor.constraint(equalTo: self.topAnchor, constant: 67).isActive = true
-        self.label1.leadingAnchor.constraint(equalTo: self.image.trailingAnchor, constant: 16).isActive = true
-        self.label1.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
-        self.label1.textAlignment = .left
+        self.addSubview(self.statusTextField)
         
-        self.addSubview(self.label2)
-        self.label2.bottomAnchor.constraint(equalTo: self.image.bottomAnchor, constant: -40).isActive = true
-        self.label2.leadingAnchor.constraint(equalTo: self.image.trailingAnchor, constant: 16).isActive = true
-        self.label2.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
-        self.label2.textAlignment = .left
+        self.infoStackView.addArrangedSubview(self.avatarImageView)
+        self.infoStackView.addArrangedSubview(self.labelsStackView)
         
-        self.addSubview(self.textField)
-        self.textField.topAnchor.constraint(equalTo: self.label2.bottomAnchor, constant: 15).isActive = true
-        self.textField.bottomAnchor.constraint(equalTo: self.button.topAnchor, constant: -15).isActive = true
+        self.labelsStackView.addArrangedSubview(self.fullNameLabel)
+        self.labelsStackView.addArrangedSubview(self.statusLabel)
         
-        self.textField.leadingAnchor.constraint(equalTo: self.image.trailingAnchor, constant: 16).isActive = true
-        self.textField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
+        let topConstraint = self.infoStackView.topAnchor.constraint(equalTo: self.topAnchor)
+        let leadingConstraint = self.infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let trailingConstraint = self.infoStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         
-        self.textField.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        let imageViewAspectRatio = self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor, multiplier: 1.0)
+        
+        let topTextFieldConstraint = self.statusTextField.topAnchor.constraint(equalTo: self.infoStackView.bottomAnchor, constant: 10)
+        let leadingTextFieldConstraint = self.statusTextField.leadingAnchor.constraint(equalTo: self.labelsStackView.leadingAnchor)
+        let trailingTextFieldConstraint = self.statusTextField.trailingAnchor.constraint(equalTo: self.infoStackView.trailingAnchor)
+        let heightTextFieldConstraint = self.statusTextField.heightAnchor.constraint(equalToConstant: 30)
+        
+        let topButtonConstraint = self.setStatusButton.topAnchor.constraint(equalTo: self.statusTextField.bottomAnchor, constant: 10)
+        let leadingButtonConstraint = self.setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let trailingButtonConstraint = self.setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let heightButtonConstraint = self.setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+        
+        #warning("не понял как получить frame картинки, что бы вычислить радиус для скругления картинки. Подскажите пожалуйста как его получить frame (bounds) определяется всегда как (0,0,0,0)")
+        // self.avatarImageView.layer.cornerRadius =  self.avatarImageView.frame.height / 2
+        self.avatarImageView.layer.cornerRadius = 60
+        
+        NSLayoutConstraint.activate([
+            topConstraint,
+            leadingConstraint,
+            trailingConstraint,
+            imageViewAspectRatio,
+            
+            topTextFieldConstraint,
+            leadingTextFieldConstraint,
+            trailingTextFieldConstraint,
+            heightTextFieldConstraint,
+            
+            topButtonConstraint,
+            leadingButtonConstraint,
+            trailingButtonConstraint,
+            bottomButtonConstraint,
+            heightButtonConstraint
+        ].compactMap({ $0 }))
+        
     }
     
-    private lazy var button: UIButton = {
+    
+    
+    private lazy var labelsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var infoStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private lazy var setStatusButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Show status", for: .normal)
+        button.setTitle("go to play...", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 4
@@ -67,27 +104,27 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    private lazy var label1: UILabel = {
-        let label1 = UILabel()
-        label1.text = "Hipster Cat"
-        label1.translatesAutoresizingMaskIntoConstraints = false
-        label1.textColor = .black
-        label1.font = UIFont.boldSystemFont(ofSize: 18.0)
+    private lazy var fullNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Hipster Cat"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 18.0)
         
-        return label1
+        return label
     }()
     
-    private lazy var label2: UILabel = {
-        let label2 = UILabel()
-        label2.text = "Waiting for something..."
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        label2.textColor = .gray
-        label2.font = UIFont(name: "", size: 14)
+    private lazy var statusLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Waiting for something..."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .gray
+        label.font = UIFont(name: "", size: 14)
         
-        return label2
+        return label
     }()
     
-    private lazy var image: UIImageView = {
+    private lazy var avatarImageView: UIImageView = {
         let image = UIImageView()
         
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +136,7 @@ class ProfileHeaderView: UIView {
         return image
     }()
     
-    private lazy var textField: UITextField = {
+        private lazy var statusTextField: UITextField = {
         
         let textField = UITextField()
         
@@ -110,6 +147,7 @@ class ProfileHeaderView: UIView {
         textField.layer.backgroundColor = UIColor.white.cgColor
         textField.font = UIFont(name: "", size: 15)
         textField.textColor = .black
+        textField.indent(size:10)
         
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         
@@ -122,8 +160,8 @@ class ProfileHeaderView: UIView {
     }
     
     @objc private func buttonPressed() {
-        print(self.label1.text!)
-        self.label2.text = statusText
+        print(self.fullNameLabel.text!)
+        self.statusLabel.text = statusText
         self.endEditing(true)
     }
     
@@ -131,10 +169,11 @@ class ProfileHeaderView: UIView {
         statusText = textField.text!
     }
     
-//    @IBAction func hideKeyBoardButton(_ sender: Any) {
-//    self.view.endEditing(true)
-//
-//    }
-    
 }
 
+extension UITextField {
+    func indent(size:CGFloat) {
+        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
+        self.leftViewMode = .always
+    }
+}

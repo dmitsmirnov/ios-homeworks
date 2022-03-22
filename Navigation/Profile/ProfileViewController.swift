@@ -8,22 +8,35 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
-    let phv: ProfileHeaderView = ProfileHeaderView()
+    
+    private lazy var profileHeaderView: ProfileHeaderView = {
+        let view = ProfileHeaderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .lightGray
-        
-        self.view.addSubview(phv)
-        phv.frame = super.view.frame
-        
+        self.setupView()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        phv.frame = super.view.frame
+    private func setupView() {
+        
+        self.view.addSubview(self.profileHeaderView)
+        //self.view.backgroundColor = .green
+        
+        let topConstraint = self.profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+        let leadingConstraint = self.profileHeaderView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+        let trailingConstraint = self.profileHeaderView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        let heightConstraint = self.profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+        
+        NSLayoutConstraint.activate([
+            topConstraint,
+            leadingConstraint,
+            trailingConstraint,
+            heightConstraint
+        ].compactMap({ $0 }))
     }
     
 }
