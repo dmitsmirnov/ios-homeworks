@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+<<<<<<< HEAD
    uuid = "97E0E960-D6CD-4029-9C35-527F31B64D11"
+=======
+   uuid = "4F6B9F35-3762-4474-9A53-CDC488D54D5A"
+>>>>>>> feature/iosui-2
    type = "1"
    version = "2.0">
 </Bucket>
