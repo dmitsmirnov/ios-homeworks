@@ -1,21 +1,13 @@
 //
-<<<<<<< HEAD
 //  ProfileViewController.swift
 //  Navigation
 //
 //  Created by Дмитрий Смирнов on 08.02.2022.
-=======
-//  FirstViewController.swift
-//  Navigation
-//
-//  Created by Дмитрий Смирнов on 14.02.2022.
->>>>>>> feature/iosui-2
 //
 
 import UIKit
 
 class ProfileViewController: UIViewController {
-<<<<<<< HEAD
     
     override func viewDidLoad() {
         
@@ -25,14 +17,6 @@ class ProfileViewController: UIViewController {
         
     }
     
-=======
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.title = "Профиль"
-
-    }
->>>>>>> feature/iosui-2
 
     /*
     // MARK: - Navigation
