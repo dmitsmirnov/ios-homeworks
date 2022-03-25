@@ -29,10 +29,11 @@ class PostTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var stackForLikesAndViews: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
+        stackView.axis = .horizontal
         stackView.spacing = 10
+        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -53,10 +54,9 @@ class PostTableViewCell: UITableViewCell {
     private lazy var postImage: UIImageView = {
         let photoView = UIImageView()
         photoView.translatesAutoresizingMaskIntoConstraints = false
-        //img.image = UIImage(named: img)
         photoView.backgroundColor = .black
         photoView.contentMode = .scaleAspectFit
-        photoView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        //photoView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         return photoView
     }()
     
@@ -84,7 +84,6 @@ class PostTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.font = UIFont(name: "Calibri", size: 16)
         label.textColor = .black
-        
         //label.setContentCompressionResistancePriority(UILayoutPriority(750), for: .vertical)
         //label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
 
@@ -98,6 +97,7 @@ class PostTableViewCell: UITableViewCell {
         label.textColor = .black
         //label.setContentCompressionResistancePriority(UILayoutPriority(750), for: .vertical)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
         return label
     }()
     
@@ -124,36 +124,26 @@ class PostTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(self.backView)
         self.backView.addSubview(self.authorLabel)
-//        self.backView.addSubview(self.stackView)
         
         self.backView.addSubview(self.postImage)
         self.backView.addSubview(self.descriptionLabel)
-        self.backView.addSubview(self.likesLabel)
-        self.backView.addSubview(self.viewsLabel)
         
-//        self.stackView.addArrangedSubview(self.authorLabel)
-//        self.stackView.addArrangedSubview(self.postImage)
-//        self.stackView.addArrangedSubview(self.descriptionLabel)
-//        self.stackView.addArrangedSubview(self.likesLabel)
-//        self.stackView.addArrangedSubview(self.viewsLabel)
+        self.backView.addSubview(self.stackForLikesAndViews)
+        self.stackForLikesAndViews.addArrangedSubview(self.likesLabel)
+        self.stackForLikesAndViews.addArrangedSubview(self.viewsLabel)
         
         let backViewConstraints = self.backViewConstraints()
         let authorConstraints = self.authorConstraints()
-        //let stackViewConstraints = self.stackViewConstraints()
         
         let imageConstraint = self.imageConstraint()
         let descriptionConstraints = self.descriptionConstraints()
-        let likesConstraints = self.likesConstraints()
-        let viewsConstraints = self.viewsConstraints()
+        let stackLikesAndViewsConstraint = self.stackLikesAndViewsConstraint()
         
         NSLayoutConstraint.activate(backViewConstraints
                                     + authorConstraints
                                     + imageConstraint
-   //                                 + stackViewConstraints)
                                     + descriptionConstraints
-                                    + likesConstraints
-                                    + viewsConstraints)
-        #warning("Выдает несколько предупреждающих сообщений NSLayoutConstraint, не смог разобраться где и что я не так привязал, подскажите пожалуйста где копать. Еще момент, если нажать на ячейку UITableView то пропадает UITableViewCellSeperatorView")
+                                    + stackLikesAndViewsConstraint)
         
     }
     
@@ -168,69 +158,36 @@ class PostTableViewCell: UITableViewCell {
    
     private func authorConstraints() -> [NSLayoutConstraint] {
         let topConstraint = self.authorLabel.topAnchor.constraint(equalTo: self.backView.topAnchor, constant: 12)
-        let bottomConstraint = self.authorLabel.bottomAnchor.constraint(equalTo: self.authorLabel.bottomAnchor)
-        
         let leadingConstraint = self.authorLabel.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 16)
         let trailingConstraint = self.authorLabel.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -16)
         
-        //let height = self.authorLabel.heightAnchor.constraint(equalToConstant: 30)
-        
-        return [topConstraint, leadingConstraint, trailingConstraint, bottomConstraint]
+        return [topConstraint, leadingConstraint, trailingConstraint]
     }
-    
-    private func stackViewConstraints() -> [NSLayoutConstraint] {
-        let topConstraint = self.stackView.topAnchor.constraint(equalTo: self.postImage.bottomAnchor, constant: 12)
-        
-        let leadingConstraint = self.stackView.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor)
-        let trailingConstraint = self.stackView.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor)
-        let bottomConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor)
-
-        return [
-            topConstraint, leadingConstraint, trailingConstraint, bottomConstraint
-        ]
-    }
-    
     
     private func imageConstraint() -> [NSLayoutConstraint] {
         let topConstraint = self.postImage.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 12)
-        let bottomConstraint = self.postImage.bottomAnchor.constraint(equalTo: self.postImage.bottomAnchor)
         let leadingConstraint = self.postImage.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor)
         let trailingConstraint = self.postImage.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor)
-        
-        //let centerX = self.centerXAnchor.constraint(equalTo: self.backView.centerXAnchor)
-        //let height = self.heightAnchor.constraint(equalToConstant: 50)
-        //let width = self.widthAnchor.constraint(equalToConstant: 50)
-        
         let imageViewAspectRatio = self.postImage.heightAnchor.constraint(equalTo: self.postImage.widthAnchor, multiplier: 0.7)
         
-        return [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint, imageViewAspectRatio]
+        return [topConstraint, leadingConstraint, trailingConstraint, imageViewAspectRatio]
     }
     
     private func descriptionConstraints() -> [NSLayoutConstraint] {
         let topConstraint = self.descriptionLabel.topAnchor.constraint(equalTo: self.postImage.bottomAnchor, constant: 16)
-        let bottomConstraint = self.descriptionLabel.bottomAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor)
         let leadingConstraint = self.descriptionLabel.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 16)
         let trailingConstraint = self.descriptionLabel.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -16)
         
+        return [topConstraint, leadingConstraint, trailingConstraint]
+    }
+    
+    private func stackLikesAndViewsConstraint() -> [NSLayoutConstraint] {
+        let topConstraint = self.stackForLikesAndViews.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 16)
+        let bottomConstraint = self.stackForLikesAndViews.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -16)
+        let leadingConstraint = self.stackForLikesAndViews.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 16)
+        let trailingConstraint = self.stackForLikesAndViews.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -16)
+        
         return [topConstraint, bottomConstraint, leadingConstraint, trailingConstraint]
-    }
-    
-    private func likesConstraints() -> [NSLayoutConstraint] {
-        let topConstraint = self.likesLabel.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 16)
-        let bottomConstraint = self.likesLabel.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -16)
-        let leadingConstraint = self.likesLabel.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 16)
-        //let trailingConstraint = self.likesLabel.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor)
-        
-        return [topConstraint, bottomConstraint, leadingConstraint]
-    }
-    
-    private func viewsConstraints() -> [NSLayoutConstraint] {
-        let topConstraint = self.viewsLabel.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 16)
-        let bottomConstraint = self.viewsLabel.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -16)
-        //let leadingConstraint = self.viewsLabel.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor)
-        let trailingConstraint = self.viewsLabel.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -16)
-        
-        return [topConstraint, bottomConstraint, trailingConstraint]
     }
     
     func setup(with viewModel: ViewModel) {

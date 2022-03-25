@@ -23,6 +23,7 @@
 		0AA7714427DAAD3800BE599A /* blue_pixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA7714327DAAD3800BE599A /* blue_pixel.png */; };
 		0AA7714B27DCADFB00BE599A /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7714A27DCADFB00BE599A /* ColorSet.swift */; };
 		0AD979AE27C8DFB500ACC356 /* myPhoto.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0AD979AD27C8DFB500ACC356 /* myPhoto.jpeg */; };
+		0AE269F427EE04DE00AE3860 /* OtherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE269F327EE04DE00AE3860 /* OtherProtocols.swift */; };
 		0AEA139727DFCD6E00724FB6 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA139627DFCD6E00724FB6 /* TextField.swift */; };
 		0AEA139927E127B900724FB6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA139827E127B900724FB6 /* Post.swift */; };
 		0AEA139C27E232E100724FB6 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA139B27E232E100724FB6 /* PostTableViewCell.swift */; };
@@ -49,6 +50,7 @@
 		0AA7714327DAAD3800BE599A /* blue_pixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_pixel.png; path = ../../../../../../Users/dmitry/Downloads/blue_pixel.png; sourceTree = "<group>"; };
 		0AA7714A27DCADFB00BE599A /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		0AD979AD27C8DFB500ACC356 /* myPhoto.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = myPhoto.jpeg; path = Navigation/myPhoto.jpeg; sourceTree = SOURCE_ROOT; };
+		0AE269F327EE04DE00AE3860 /* OtherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProtocols.swift; sourceTree = "<group>"; };
 		0AEA139627DFCD6E00724FB6 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		0AEA139827E127B900724FB6 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0AEA139B27E232E100724FB6 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
@@ -111,8 +113,9 @@
 				0AEA139D27E37C8000724FB6 /* eminemPhoto.jpg */,
 				0AEA139F27E3B04500724FB6 /* bastaPhoto.jpeg */,
 				0AA7714127DA903E00BE599A /* logo.png */,
-				0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */,
+				0AE269F227EE047F00AE3860 /* Protohols */,
 				0A96A96827C3F5300041A619 /* ProfileViewController.swift */,
+				0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */,
 				0AD979D127CFBD0A00ACC356 /* Feed */,
 			);
 			path = Profile;
@@ -142,6 +145,14 @@
 				0A96A8ED27BEA2CA0041A619 /* InfoViewController.swift */,
 			);
 			path = Info;
+			sourceTree = "<group>";
+		};
+		0AE269F227EE047F00AE3860 /* Protohols */ = {
+			isa = PBXGroup;
+			children = (
+				0AE269F327EE04DE00AE3860 /* OtherProtocols.swift */,
+			);
+			path = Protohols;
 			sourceTree = "<group>";
 		};
 		0AEA139A27E232C600724FB6 /* Cells */ = {
@@ -235,6 +246,7 @@
 				0AA7714027DA4BDE00BE599A /* LoginInViewController.swift in Sources */,
 				0A96A8EC27BD5BFB0041A619 /* PostViewController.swift in Sources */,
 				0A6A5E4227B1B75C0087726F /* SceneDelegate.swift in Sources */,
+				0AE269F427EE04DE00AE3860 /* OtherProtocols.swift in Sources */,
 				0AA7714B27DCADFB00BE599A /* ColorSet.swift in Sources */,
 				0A96A96727C3F4F60041A619 /* ProfileHeaderView.swift in Sources */,
 				0A96A8EA27BD3BFD0041A619 /* TabBarController.swift in Sources */,

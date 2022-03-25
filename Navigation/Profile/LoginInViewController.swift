@@ -7,11 +7,11 @@
 
 import UIKit
 
-
 class LoginInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
         self.loginTextField.delegate = self
         self.passwordTextField.delegate = self
         self.configureSubview()
@@ -19,6 +19,13 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        
+        // hidden keyboard
+        self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(tap)))
+    }
+    
+    @objc func tap() {
+        view.endEditing(true)
     }
     
     private func configureSubview() {
@@ -53,13 +60,11 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         self.logo.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
         self.logo.heightAnchor.constraint(equalToConstant: 100).isActive = true
         self.logo.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        self.logo.bottomAnchor.constraint(equalTo: self.logo.bottomAnchor).isActive = true
         
         self.mainStack.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor, constant: 16).isActive = true
         self.mainStack.trailingAnchor.constraint(equalTo: self.mainView.trailingAnchor, constant: -16).isActive = true
         self.mainStack.topAnchor.constraint(equalTo: self.logo.bottomAnchor, constant: 120).isActive = true
         self.mainStack.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        self.mainStack.bottomAnchor.constraint(equalTo: self.mainStack.bottomAnchor).isActive = true
         
         self.logInButton.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor, constant: 16).isActive = true
         self.logInButton.trailingAnchor.constraint(equalTo: self.mainView.trailingAnchor, constant: -16).isActive = true
@@ -109,7 +114,7 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         
         // отступ
         //mainStack.spacing = 10
-        //#warning("Не удалось реализовать разделительную полоску между двумя textField")
+        #warning("Не удалось реализовать разделительную полоску между двумя textField")
         
         mainStack.backgroundColor = .systemGray6
         return mainStack
@@ -137,7 +142,6 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
     private lazy var logInButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        //button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
         button.setTitle("Log In", for: .normal)
         button.backgroundColor = UIColor(patternImage: UIImage(named: "blue_pixel.png")!)
@@ -152,35 +156,34 @@ class LoginInViewController: UIViewController, UITextFieldDelegate {
         self.show(profileView, sender: .none)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        //self.view.endEditing(true)
-        self.scrollView.endEditing(true)
-        //#warning("Перестала скрываться клавиатура при нажатии на любую часть экрана")
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
     
+    private func keyboardHideOrShow(notification: NSNotification) {
+                
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            let contentOffset: CGPoint = notification.name == UIResponder.keyboardWillHideNotification
+                ? .zero : CGPoint(x: 0, y: keyboardHeight)
+            
+            //print(contentOffset)
+            //print(self.scrollView.contentOffset)
+            
+            self.scrollView.contentOffset = contentOffset
+        }
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
-
-//        let kbFrameSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-//        if self.scrollView.frame.origin.y == 0 {
-//            self.scrollView.frame.origin.y -= kbFrameSize!.height
-//        }
-        //#warning("Не смог разобраться как получить высоту клавиатуры, которая может перекрывать элементы, а может и не перекрывать")
-        scrollView.contentOffset = CGPoint(x: 0, y: 0)
-        
+        keyboardHideOrShow(notification: notification)
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-//      if self.scrollView.frame.origin.y != 0 {
-//          self.scrollView.frame.origin.y = 0
-//      }
-        scrollView.contentOffset = CGPoint(x: 0, y: -47)
-
+        keyboardHideOrShow(notification: notification)
     }
     
 }
