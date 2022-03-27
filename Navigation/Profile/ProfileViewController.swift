@@ -30,14 +30,29 @@ class ProfileViewController: UIViewController {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
+        //tableView.estimatedSectionHeaderHeight = 0
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         //tableView.backgroundColor = .white
         tableView.backgroundColor = .systemGray6
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "ArticleCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosCell")
         
         return tableView
+    }()
+    
+    private lazy var layoutCollection: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    private lazy var collection: UICollectionView = {
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: self.layoutCollection)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        return collection
     }()
     
     private var dataSource: [Post.Article] = []
@@ -57,7 +72,7 @@ class ProfileViewController: UIViewController {
         
         // hidden keyboard
         self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(tap)))
-        print(self.isHeaderViewExpanded)
+        //print(self.isHeaderViewExpanded)
     }
 
     @objc func tap() {
@@ -119,34 +134,60 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, ProfileHeaderViewProtocol {
     
-    func updateTable() {
-        //self.tableView.beginUpdates()
-        //self.tableView.endUpdates()
-        //self.tableView.reloadData()
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        //view.backgroundColor = .red
+//        let p = ProfileHeaderView()
+//        view.addSubview(p)
+//        view.layoutIfNeeded()
+//    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+//        if section == 0 {
+//            return 1
+//        } else {
+            return self.dataSource.count + 1
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as? PostTableViewCell else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+        
+        //print(indexPath.row)
+        
+        //if indexPath.section == 0 {
+        if indexPath.row == 0 {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosCell", for: indexPath) as! PhotosTableViewCell
+            return cell
+            
+        } else {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as? PostTableViewCell else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+                return cell
+            }
+            
+            let article = self.dataSource[indexPath.row - 1]
+            let viewModel = PostTableViewCell.ViewModel(author: article.author,
+                                                        description: article.description,
+                                                        image: article.image,
+                                                        likes: article.likes,
+                                                        views: article.views)
+            //tableView.numberOfSections
+            cell.setup(with: viewModel)
             return cell
         }
         
-        let article = self.dataSource[indexPath.row]
-        let viewModel = PostTableViewCell.ViewModel(author: article.author,
-                                                    description: article.description,
-                                                    image: article.image,
-                                                    likes: article.likes,
-                                                    views: article.views)
-        cell.setup(with: viewModel)
-        return cell
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 300
+//        if indexPath.row == 0 {
+//            return 200
+//        }
+//        //return nil
 //    }
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -163,9 +204,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
         return profile
     }
     
-//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-//        return 100
-//    }
+    //func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //    tableView.tableHeaderView = UIView(frame: .zero)
+    //}
     
     func didTapStatusButton(textFieldIsVisible: Bool, completion: @escaping () -> Void) {
         self.heightConstraint?.constant = textFieldIsVisible ? 244 : 200

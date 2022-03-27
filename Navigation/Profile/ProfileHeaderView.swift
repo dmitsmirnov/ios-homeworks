@@ -142,7 +142,7 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         self.buttonTopConstraint?.priority = UILayoutPriority(rawValue: 999)
         let leadingButtonConstraint = self.setStatusButton.leadingAnchor.constraint(equalTo: self.infoStackView.leadingAnchor)
         let trailingButtonConstraint = self.setStatusButton.trailingAnchor.constraint(equalTo: self.infoStackView.trailingAnchor)
-        let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15)
         let heightButtonConstraint = self.setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         
         NSLayoutConstraint.activate([

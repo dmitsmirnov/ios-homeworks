@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A61BE0B27EF4FAB008B7108 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61BE0A27EF4FAB008B7108 /* PhotosTableViewCell.swift */; };
 		0A6A5E4027B1B75C0087726F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A5E3F27B1B75C0087726F /* AppDelegate.swift */; };
 		0A6A5E4227B1B75C0087726F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4127B1B75C0087726F /* SceneDelegate.swift */; };
 		0A6A5E4927B1B76A0087726F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4827B1B76A0087726F /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A61BE0A27EF4FAB008B7108 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		0A6A5E3C27B1B75C0087726F /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A6A5E3F27B1B75C0087726F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A6A5E4127B1B75C0087726F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				0AEA139B27E232E100724FB6 /* PostTableViewCell.swift */,
+				0A61BE0A27EF4FAB008B7108 /* PhotosTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A61BE0B27EF4FAB008B7108 /* PhotosTableViewCell.swift in Sources */,
 				0A6A5E4027B1B75C0087726F /* AppDelegate.swift in Sources */,
 				0A96A96927C3F5300041A619 /* ProfileViewController.swift in Sources */,
 				0AEA139C27E232E100724FB6 /* PostTableViewCell.swift in Sources */,
