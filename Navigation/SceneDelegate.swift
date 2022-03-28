@@ -23,17 +23,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowsScene)
         self.window?.rootViewController = createTabBarController()
         //UITabBar.appearance().barTintColor = .red
+        //let loginIn = LoginInViewController()
+        //self.window?.rootViewController?.show(loginIn, sender: .none)
         self.window?.makeKeyAndVisible()
         
     }
 
     func createProfileViewController() -> UINavigationController {
         
-        let profileViewController = LoginInViewController()
-        profileViewController.title = "Profile"
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 0)
+        let loginViewController = LoginInViewController()
+        //let profileViewController = ProfileViewController()
+        //let photosViewController = PhotosViewController()
+        
+        let navigationController = UINavigationController()
+        
+        //let profileViewController = ProfileViewController()
+        loginViewController.title = "Profile"
+        loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 0)
        
-        return UINavigationController(rootViewController: profileViewController)
+        navigationController.viewControllers = [loginViewController]
+        
+        return navigationController
+        //return UINavigationController(rootViewController: loginViewController)
         
     }
     
@@ -46,6 +57,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UINavigationController(rootViewController: feedViewController)
         
     }
+    
+//    func createTestViewController() -> UINavigationController {
+//
+//        let testViewController = PhotosViewController()
+//        //feedViewController.title = "Feed"
+//        //feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.richtext"), tag: 0)
+//
+//        return UINavigationController(rootViewController: testViewController)
+//
+//    }
     
     func createTabBarController() -> UITabBarController {
         

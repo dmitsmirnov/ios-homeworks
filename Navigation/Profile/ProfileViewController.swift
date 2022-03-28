@@ -31,7 +31,7 @@ class ProfileViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
         //tableView.estimatedSectionHeaderHeight = 0
-        
+        //tableView.isUserInteractionEnabled = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         //tableView.backgroundColor = .white
         tableView.backgroundColor = .systemGray6
@@ -41,18 +41,6 @@ class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosCell")
         
         return tableView
-    }()
-    
-    private lazy var layoutCollection: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        return layout
-    }()
-    
-    private lazy var collection: UICollectionView = {
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: self.layoutCollection)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
     }()
     
     private var dataSource: [Post.Article] = []
@@ -71,8 +59,10 @@ class ProfileViewController: UIViewController {
         self.dataSource = article
         
         // hidden keyboard
-        self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(tap)))
+        // если активировать этот метод, то не срабатывает метод tableView - didSelectAtRow
+        //self.view.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(tap)))
         //print(self.isHeaderViewExpanded)
+        
     }
 
     @objc func tap() {
@@ -130,6 +120,10 @@ class ProfileViewController: UIViewController {
         //let profileHeaderView = ProfileHeaderView()
         //profileHeaderView.delegate = self
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, ProfileHeaderViewProtocol {
@@ -141,9 +135,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
 //        view.layoutIfNeeded()
 //    }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        if section == 0 {
@@ -190,9 +184,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
 //        //return nil
 //    }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(indexPath)
-//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         //print(delegate.statusTextField.isHidden)
@@ -202,6 +193,29 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let profile = ProfileHeaderView()
         return profile
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            
+            let photoViewController = PhotosViewController()
+            
+            let navigationController = UINavigationController(rootViewController: photoViewController)
+            navigationController.modalPresentationStyle = .fullScreen
+            
+            let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goToBackView))
+            photoViewController.navigationItem.leftBarButtonItem = backButton
+            
+            //self.navigationController?.pushViewController(photoViewController, animated: true)
+            //self.show(navigationController, sender: .none)
+            #warning("Через push не отображается navigationController, скорее всего я думаю это т.к. в root controller установлены 2 контроллера - LoginViewController и FeedViewController, а ProfileViewController отсутсвует. Пробовал менять в SceneDelegate LoginViewController на ProfileViewController, но тогда главной страницей при запуске приложения становиться ProfileViewController. Также пробовал добавлять - navigationController.viewControllers = [loginViewController, profileViewController], тоже получается ерунда. Вообщем экран пушиться, но без navigationController. Поэтому я его презентовал, а кнопку назад добавил, костыль, но работает) И в следствии всего это естественно отсутствует TabBar")
+            //self.navigationController?.pushViewController(photoViewController, animated: true)
+            self.present(navigationController, animated: true)
+        }
+    }
+    
+    @objc func goToBackView() {
+        self.dismiss(animated: true)
     }
     
     //func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -222,9 +236,3 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
     
 }
 
-extension ProfileViewController: ProfileViewControllerDelegate {
-    func myTest() {
-        //self.isHeaderViewExpanded = false
-        print("123")
-    }
-}

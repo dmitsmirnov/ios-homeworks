@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0A61BE0B27EF4FAB008B7108 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61BE0A27EF4FAB008B7108 /* PhotosTableViewCell.swift */; };
+		0A61BE0D27F079D9008B7108 /* Photos in Resources */ = {isa = PBXBuildFile; fileRef = 0A61BE0C27F079D9008B7108 /* Photos */; };
+		0A61BE1027F19A8E008B7108 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61BE0F27F19A8E008B7108 /* PhotosViewController.swift */; };
+		0A61BE1227F1B4F2008B7108 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A61BE1127F1B4F2008B7108 /* PhotosCollectionViewCell.swift */; };
 		0A6A5E4027B1B75C0087726F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A5E3F27B1B75C0087726F /* AppDelegate.swift */; };
 		0A6A5E4227B1B75C0087726F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4127B1B75C0087726F /* SceneDelegate.swift */; };
 		0A6A5E4927B1B76A0087726F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A6A5E4827B1B76A0087726F /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 
 /* Begin PBXFileReference section */
 		0A61BE0A27EF4FAB008B7108 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		0A61BE0C27F079D9008B7108 /* Photos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Photos; sourceTree = "<group>"; };
+		0A61BE0F27F19A8E008B7108 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		0A61BE1127F1B4F2008B7108 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A6A5E3C27B1B75C0087726F /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A6A5E3F27B1B75C0087726F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A6A5E4127B1B75C0087726F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,10 +96,13 @@
 		0A6A5E3E27B1B75C0087726F /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				0A61BE0C27F079D9008B7108 /* Photos */,
 				0AEA139A27E232C600724FB6 /* Cells */,
 				0AA7714927DCAD6000BE599A /* Extensions */,
 				0AD979D227D2003900ACC356 /* Info */,
 				0A96A96527C3F4CA0041A619 /* Profile */,
+				0AE269F227EE047F00AE3860 /* Protohols */,
+				0AD979D127CFBD0A00ACC356 /* Feed */,
 				0A96A8E927BD3BFD0041A619 /* TabBarController.swift */,
 				0A6A5E3F27B1B75C0087726F /* AppDelegate.swift */,
 				0A6A5E4127B1B75C0087726F /* SceneDelegate.swift */,
@@ -101,7 +110,6 @@
 				0A6A5E4A27B1B76A0087726F /* LaunchScreen.storyboard */,
 				0A6A5E4D27B1B76A0087726F /* Info.plist */,
 				0A96A8C127BA96AD0041A619 /* FirstStoryboard.storyboard */,
-				0AEA139827E127B900724FB6 /* Post.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -110,15 +118,14 @@
 			isa = PBXGroup;
 			children = (
 				0AA7713F27DA4BDE00BE599A /* LoginInViewController.swift */,
+				0A96A96827C3F5300041A619 /* ProfileViewController.swift */,
+				0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */,
+				0A61BE0F27F19A8E008B7108 /* PhotosViewController.swift */,
 				0AA7714327DAAD3800BE599A /* blue_pixel.png */,
 				0AD979AD27C8DFB500ACC356 /* myPhoto.jpeg */,
 				0AEA139D27E37C8000724FB6 /* eminemPhoto.jpg */,
 				0AEA139F27E3B04500724FB6 /* bastaPhoto.jpeg */,
 				0AA7714127DA903E00BE599A /* logo.png */,
-				0AE269F227EE047F00AE3860 /* Protohols */,
-				0A96A96827C3F5300041A619 /* ProfileViewController.swift */,
-				0A96A96627C3F4F60041A619 /* ProfileHeaderView.swift */,
-				0AD979D127CFBD0A00ACC356 /* Feed */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -137,6 +144,7 @@
 			children = (
 				0A96A8E727BD39600041A619 /* FeedViewController.swift */,
 				0A96A8EB27BD5BFB0041A619 /* PostViewController.swift */,
+				0AEA139827E127B900724FB6 /* Post.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 			children = (
 				0AEA139B27E232E100724FB6 /* PostTableViewCell.swift */,
 				0A61BE0A27EF4FAB008B7108 /* PhotosTableViewCell.swift */,
+				0A61BE1127F1B4F2008B7108 /* PhotosCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -229,6 +238,7 @@
 				0A6A5E4C27B1B76A0087726F /* LaunchScreen.storyboard in Resources */,
 				0A6A5E4927B1B76A0087726F /* Assets.xcassets in Resources */,
 				0AEA139E27E37C8000724FB6 /* eminemPhoto.jpg in Resources */,
+				0A61BE0D27F079D9008B7108 /* Photos in Resources */,
 				0AA7714427DAAD3800BE599A /* blue_pixel.png in Resources */,
 				0A96A8C227BA96AD0041A619 /* FirstStoryboard.storyboard in Resources */,
 			);
@@ -242,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A61BE0B27EF4FAB008B7108 /* PhotosTableViewCell.swift in Sources */,
+				0A61BE1027F19A8E008B7108 /* PhotosViewController.swift in Sources */,
 				0A6A5E4027B1B75C0087726F /* AppDelegate.swift in Sources */,
 				0A96A96927C3F5300041A619 /* ProfileViewController.swift in Sources */,
 				0AEA139C27E232E100724FB6 /* PostTableViewCell.swift in Sources */,
@@ -254,6 +265,7 @@
 				0AA7714B27DCADFB00BE599A /* ColorSet.swift in Sources */,
 				0A96A96727C3F4F60041A619 /* ProfileHeaderView.swift in Sources */,
 				0A96A8EA27BD3BFD0041A619 /* TabBarController.swift in Sources */,
+				0A61BE1227F1B4F2008B7108 /* PhotosCollectionViewCell.swift in Sources */,
 				0A96A8E827BD39600041A619 /* FeedViewController.swift in Sources */,
 				0A96A8EE27BEA2CA0041A619 /* InfoViewController.swift in Sources */,
 			);

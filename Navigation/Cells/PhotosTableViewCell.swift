@@ -16,7 +16,7 @@ class PhotosTableViewCell: UITableViewCell {
         view.layer.maskedCorners = [
             .layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner
         ]
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -43,7 +43,7 @@ class PhotosTableViewCell: UITableViewCell {
         let label = UILabel()
         //label.backgroundColor = .red
         //label.numberOfLines = 2
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -66,7 +66,7 @@ class PhotosTableViewCell: UITableViewCell {
         photoView.translatesAutoresizingMaskIntoConstraints = false
         //photoView.backgroundColor = .yellow
         photoView.contentMode = .scaleAspectFill
-        photoView.image = UIImage(named: "eminemPhoto.jpg")
+        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[0])")
         photoView.clipsToBounds = true
         
         photoView.layer.cornerRadius = 12
@@ -82,7 +82,7 @@ class PhotosTableViewCell: UITableViewCell {
         photoView.translatesAutoresizingMaskIntoConstraints = false
         //photoView.backgroundColor = .yellow
         photoView.contentMode = .scaleAspectFill
-        photoView.image = UIImage(named: "bastaPhoto.jpeg")
+        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[1])")
         photoView.clipsToBounds = true
         
         photoView.layer.cornerRadius = 12
@@ -93,9 +93,33 @@ class PhotosTableViewCell: UITableViewCell {
         return photoView
     }()
     
+    private lazy var image3: UIImageView = {
+        let photoView = UIImageView()
+        photoView.translatesAutoresizingMaskIntoConstraints = false
+        photoView.contentMode = .scaleAspectFill
+        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[2])")
+        photoView.clipsToBounds = true
+        
+        photoView.layer.cornerRadius = 12
+
+        return photoView
+    }()
+    
+    private lazy var image4: UIImageView = {
+        let photoView = UIImageView()
+        photoView.translatesAutoresizingMaskIntoConstraints = false
+        photoView.contentMode = .scaleAspectFill
+        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[3])")
+        photoView.clipsToBounds = true
+        
+        photoView.layer.cornerRadius = 12
+
+        return photoView
+    }()
+    
     private func setupView() {
     
-        self.contentView.backgroundColor = .blue
+        //self.contentView.backgroundColor = .white
         
         self.contentView.addSubview(self.backView)
         self.backView.addSubview(self.stackTop)
@@ -106,6 +130,8 @@ class PhotosTableViewCell: UITableViewCell {
         
         self.stackBottom.addArrangedSubview(self.image1)
         self.stackBottom.addArrangedSubview(self.image2)
+        self.stackBottom.addArrangedSubview(self.image3)
+        self.stackBottom.addArrangedSubview(self.image4)
         
         self.backView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         self.backView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
@@ -126,8 +152,10 @@ class PhotosTableViewCell: UITableViewCell {
         self.stackBottom.trailingAnchor.constraint(equalTo: self.stackTop.trailingAnchor).isActive = true
         self.stackBottom.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -12).isActive = true
         
-        self.image1.heightAnchor.constraint(equalTo: self.image1.widthAnchor, multiplier: 0.5).isActive = true
-        self.image2.heightAnchor.constraint(equalTo: self.image2.widthAnchor, multiplier: 0.5).isActive = true
+        self.image1.heightAnchor.constraint(equalTo: self.image1.widthAnchor, multiplier: 0.8).isActive = true
+        self.image2.heightAnchor.constraint(equalTo: self.image2.widthAnchor, multiplier: 0.8).isActive = true
+        self.image3.heightAnchor.constraint(equalTo: self.image3.widthAnchor, multiplier: 0.8).isActive = true
+        self.image4.heightAnchor.constraint(equalTo: self.image4.widthAnchor, multiplier: 0.8).isActive = true
         
         //self.stackBottom.topAnchor.constraint(equalTo: self.stackTop.bottomAnchor, constant: 12).isActive = true
         
@@ -143,6 +171,10 @@ class PhotosTableViewCell: UITableViewCell {
         
         self.photoLabel.text = "Photos"
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
