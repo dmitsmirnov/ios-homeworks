@@ -58,6 +58,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
     
+    func createAvatarViewController() -> UINavigationController {
+        
+        let avatarViewController = AvatarViewController()
+        avatarViewController.title = "Avatar"
+        avatarViewController.tabBarItem = UITabBarItem(title: "Avatar", image: UIImage(systemName: "person"), tag: 0)
+    
+        return UINavigationController(rootViewController: avatarViewController)
+        
+    }
+    
 //    func createTestViewController() -> UINavigationController {
 //
 //        let testViewController = PhotosViewController()
@@ -72,7 +82,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarController = TabBarController()
         tabBarController.viewControllers = [createProfileViewController(),
-                                            createFeedViewController()]
+                                            createFeedViewController(),
+                                            createAvatarViewController()]
         
         return tabBarController
         
