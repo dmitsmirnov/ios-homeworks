@@ -16,9 +16,79 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+       // guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowsScene = (scene as? UIWindowScene) else { return }
+        
+        self.window = UIWindow(windowScene: windowsScene)
+        self.window?.rootViewController = createTabBarController()
+        //UITabBar.appearance().barTintColor = .red
+        //let loginIn = LoginInViewController()
+        //self.window?.rootViewController?.show(loginIn, sender: .none)
+        self.window?.makeKeyAndVisible()
+        
     }
 
+    func createProfileViewController() -> UINavigationController {
+        
+        let loginViewController = LoginInViewController()
+        //let profileViewController = ProfileViewController()
+        //let photosViewController = PhotosViewController()
+        
+        let navigationController = UINavigationController()
+        
+        //let profileViewController = ProfileViewController()
+        loginViewController.title = "Profile"
+        loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 0)
+       
+        navigationController.viewControllers = [loginViewController]
+        
+        return navigationController
+        //return UINavigationController(rootViewController: loginViewController)
+        
+    }
+    
+    func createFeedViewController() -> UINavigationController {
+        
+        let feedViewController = FeedViewController()
+        feedViewController.title = "Feed"
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.richtext"), tag: 0)
+    
+        return UINavigationController(rootViewController: feedViewController)
+        
+    }
+    
+    func createAvatarViewController() -> UINavigationController {
+        
+        let avatarViewController = AvatarViewController()
+        avatarViewController.title = "Avatar"
+        avatarViewController.tabBarItem = UITabBarItem(title: "Avatar", image: UIImage(systemName: "person"), tag: 0)
+    
+        return UINavigationController(rootViewController: avatarViewController)
+        
+    }
+    
+//    func createTestViewController() -> UINavigationController {
+//
+//        let testViewController = PhotosViewController()
+//        //feedViewController.title = "Feed"
+//        //feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.richtext"), tag: 0)
+//
+//        return UINavigationController(rootViewController: testViewController)
+//
+//    }
+    
+    func createTabBarController() -> UITabBarController {
+        
+        let tabBarController = TabBarController()
+        tabBarController.viewControllers = [createProfileViewController(),
+                                            createFeedViewController(),
+                                            createAvatarViewController()]
+        
+        return tabBarController
+        
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

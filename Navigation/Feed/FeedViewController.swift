@@ -7,9 +7,6 @@
 
 import UIKit
 
-struct Post {
-    var title: String
-}
 
 class FeedViewController: UIViewController {
 
@@ -17,7 +14,9 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = "Лента"
+        self.view.backgroundColor = .white
+        
+        //self.navigationItem.title = "Лента"
         //self.showPostButton.layer.cornerRadius = 12
         
         self.view.addSubview(self.buttonsStackView)
@@ -34,13 +33,13 @@ class FeedViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let someText = Post(title: "Some text")
-        
-        guard segue.identifier == "seguePost",
-                let seguePost = segue.destination as? PostViewController
-        else { return }
-        
-        seguePost.customText = someText.title
+//        let someText = Post(title: "Some text")
+//
+//        guard segue.identifier == "seguePost",
+//                let seguePost = segue.destination as? PostViewController
+//        else { return }
+//
+//        seguePost.customText = someText.title
         
     }
     
