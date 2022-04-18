@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ProfileHeaderView.layoutSubviews():ProfileHeaderView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.avatarImageView.frame.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.tableView(_:didSelectRowAt:):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.dataSourse">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+            <PersistentString
+               value = "dataSourse">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileHeaderView.didTapStatusButton():ProfileHeaderView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.deleg2">
+            </PersistentString>
+            <PersistentString
+               value = "self.delegate?.isHeaderViewExpanded">
+            </PersistentString>
+            <PersistentString
+               value = "self.statusTextField.isHidden">
+            </PersistentString>
+            <PersistentString
+               value = "self.delegate?">
+            </PersistentString>
+            <PersistentString
+               value = "self.deleg2?.isHeaderViewExpanded">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.longPressCell(sender:):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pressCell.postImage">
+            </PersistentString>
+            <PersistentString
+               value = "pressIndexPath.row">
+            </PersistentString>
+            <PersistentString
+               value = "self.dataSource">
+            </PersistentString>
+            <PersistentString
+               value = "cell.postImage.image">
+            </PersistentString>
+            <PersistentString
+               value = "pressCell.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileHeaderView.buttonPressed():ProfileHeaderView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "statusText != &quot;&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "self.statusTextField.isHidden">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
