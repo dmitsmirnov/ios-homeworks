@@ -34,16 +34,68 @@ class PhotosViewController: UIViewController {
         return collection
     }()
     
+    private lazy var photoImage: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        //image.isHidden = true
+        //image.alpha = 0
+        image.contentMode = .scaleAspectFit
+        
+        return image
+    }()
+    
+    private lazy var zoomPhotoView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        view.alpha = 0
+        view.backgroundColor = .clear
+        //view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideView)))
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panHideView)))
+        return view
+    }()
+    
+    private lazy var blurEffect: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.zoomPhotoView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return blurEffectView
+    }()
+    
+    @objc private func hideView() {
+        
+        UIView.animate(withDuration: 0.3) {
+            self.zoomPhotoView.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func panHideView(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            UIView.animate(withDuration: 0.3) {
+                self.zoomPhotoView.alpha = 0
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
         self.setupView()
-        
     }
     
     func setupView() {
+        
         self.view.addSubview(self.collection)
+        self.view.addSubview(self.zoomPhotoView)
+        
+        self.zoomPhotoView.addSubview(self.blurEffect)
+        self.zoomPhotoView.addSubview(self.photoImage)
+        
         
         let topConstraint =  self.collection.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 8)
         let bottomConstraint =  self.collection.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -51,6 +103,22 @@ class PhotosViewController: UIViewController {
         let trailingConstraint =  self.collection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8)
         
         NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        
+        //self.zoomPhotoView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        //self.zoomPhotoView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        //self.zoomPhotoView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        //self.zoomPhotoView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        self.zoomPhotoView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.zoomPhotoView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.zoomPhotoView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.zoomPhotoView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        self.photoImage.centerXAnchor.constraint(equalTo: self.zoomPhotoView.centerXAnchor).isActive = true
+        self.photoImage.centerYAnchor.constraint(equalTo: self.zoomPhotoView.centerYAnchor).isActive = true
+        self.photoImage.leadingAnchor.constraint(equalTo: self.zoomPhotoView.leadingAnchor).isActive = true
+        self.photoImage.trailingAnchor.constraint(equalTo: self.zoomPhotoView.trailingAnchor).isActive = true
+        //self.photoImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        //self.photoImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
     func setSizeForCell(for width: CGFloat, with spacing: CGFloat) -> CGSize{
@@ -105,6 +173,20 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let spacing = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing
         return self.setSizeForCell(for: collectionView.frame.width, with: spacing ?? 0)
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //print("123")
+        //Photos.listPhoto[indexPath.row]
+        self.photoImage.image = UIImage(named: Photos.listPhoto[indexPath.row])
+        
+        self.zoomPhotoView.isHidden = false
+        
+        UIView.animate(withDuration: 0.3) {
+            //self.zoomPhotoView.alpha = 0.97
+            self.zoomPhotoView.alpha = 1
+            self.view.layoutIfNeeded()
+        }
     }
     
 }

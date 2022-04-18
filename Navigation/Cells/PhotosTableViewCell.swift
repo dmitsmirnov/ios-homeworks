@@ -66,7 +66,7 @@ class PhotosTableViewCell: UITableViewCell {
         photoView.translatesAutoresizingMaskIntoConstraints = false
         //photoView.backgroundColor = .yellow
         photoView.contentMode = .scaleAspectFill
-        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[0])")
+        photoView.image = UIImage(named: Photos.listPhoto[0])
         photoView.clipsToBounds = true
         
         photoView.layer.cornerRadius = 12
@@ -82,7 +82,7 @@ class PhotosTableViewCell: UITableViewCell {
         photoView.translatesAutoresizingMaskIntoConstraints = false
         //photoView.backgroundColor = .yellow
         photoView.contentMode = .scaleAspectFill
-        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[1])")
+        photoView.image = UIImage(named: Photos.listPhoto[1])
         photoView.clipsToBounds = true
         
         photoView.layer.cornerRadius = 12
@@ -97,7 +97,7 @@ class PhotosTableViewCell: UITableViewCell {
         let photoView = UIImageView()
         photoView.translatesAutoresizingMaskIntoConstraints = false
         photoView.contentMode = .scaleAspectFill
-        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[2])")
+        photoView.image = UIImage(named: Photos.listPhoto[2])
         photoView.clipsToBounds = true
         
         photoView.layer.cornerRadius = 12
@@ -109,7 +109,7 @@ class PhotosTableViewCell: UITableViewCell {
         let photoView = UIImageView()
         photoView.translatesAutoresizingMaskIntoConstraints = false
         photoView.contentMode = .scaleAspectFill
-        photoView.image = UIImage(named: "Photos/\(Photos.listPhoto[3])")
+        photoView.image = UIImage(named: Photos.listPhoto[3])
         photoView.clipsToBounds = true
         
         photoView.layer.cornerRadius = 12

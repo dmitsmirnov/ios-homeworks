@@ -6,11 +6,10 @@
 //
 
 import UIKit
+import AudioToolbox
 
 
 class ProfileViewController: UIViewController {
-    
-    //private var delegate = ProfileHeaderView()
     
     var isHeaderViewExpanded: Bool = false {
         didSet {
@@ -26,12 +25,33 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
+    private lazy var zoomView: ZoomPostView = {
+        let view = ZoomPostView()
+        //view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        //view.backgroundColor = .systemGray6
+        return view
+    }()
+    
+    private lazy var myView: UIView = {
+        let view = UIView()
+        //view.delegate = self
+        view.isHidden = true
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .red
+        return view
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
-        //tableView.estimatedSectionHeaderHeight = 0
-        //tableView.isUserInteractionEnabled = false
+        
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.isUserInteractionEnabled = true
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         //tableView.backgroundColor = .white
         tableView.backgroundColor = .systemGray6
@@ -40,6 +60,8 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "ArticleCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosCell")
         
+        //tableView.collisionBoundingPath.lineWidth = 0.2
+        //tableView.accessibilityPath?.lineWidth =
         return tableView
     }()
     
@@ -52,10 +74,14 @@ class ProfileViewController: UIViewController {
         self.setupView()
         self.tableView.reloadData()
         
-        let post1 = Post.Article(author: "eminem", description: News.eminem, image: "eminemPhoto.jpg", likes: 10, views: 217)
-        let post2 = Post.Article(author: "basta", description: News.basta, image: "bastaPhoto.jpeg", likes: 5, views: 140)
+        let post1 = Post.Article(author: "snoop dog", description: News.snoopDog, image: "SnoopDog.jpg", likes: 12, views: 217)
+        let post2 = Post.Article(author: "eminem", description: News.eminem, image: "eminemPhoto.jpg", likes: 10, views: 110)
+        let post3 = Post.Article(author: "britney spears", description: News.britneySpears, image: "BritneySpears.jpeg", likes: 17, views: 164)
+        let post4 = Post.Article(author: "linkin park", description: News.linkinPark, image: "LP.jpg", likes: 21, views: 138)
+        let post5 = Post.Article(author: "basta", description: News.basta, image: "bastaPhoto.jpeg", likes: 7, views: 140)
         
-        let article = [post1, post2]
+        
+        let article = [post1, post2, post3, post4, post5]
         self.dataSource = article
         
         // hidden keyboard
@@ -64,7 +90,7 @@ class ProfileViewController: UIViewController {
         //print(self.isHeaderViewExpanded)
         
     }
-
+    
     @objc func tap() {
         self.view.endEditing(true)
     }
@@ -72,19 +98,12 @@ class ProfileViewController: UIViewController {
     private func setupView() {
         
         self.view.backgroundColor = .white
-        
-        //self.view.addSubview(self.profileHeaderView)
+
         self.view.addSubview(self.tableView)
-        //self.tableView.addSubview(self.profileHeaderView)
-//        let topConstraintView = self.profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
-//        let leadingConstraintView = self.profileHeaderView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
-//        let trailingConstraintView = self.profileHeaderView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
-//        let bottomConstraintView = self.profileHeaderView.bottomAnchor.constraint(equalTo: self.profileHeaderView.bottomAnchor)
-//        //let heightConstraintView = self.profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
         self.heightConstraint = self.profileHeaderView.heightAnchor.constraint(equalToConstant: 200)
         
         // вернуть
-        //let topConstraintTable = self.tableView.topAnchor.constraint(equalTo: self.profileHeaderView.bottomAnchor, constant: 10)
+//        let topConstraintTable = self.tableView.topAnchor.constraint(equalTo: self.profileHeaderView.bottomAnchor, constant: 10)
 //        let topConstraintTable = self.tableView.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 10)
 //        let leadingConstraintTable = self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
 //        let trailingConstraintTable = self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
@@ -97,6 +116,11 @@ class ProfileViewController: UIViewController {
         
         //self.tableView.beginUpdates()
         //self.tableView.endUpdates()
+        self.view.addSubview(self.zoomView)
+        self.zoomView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.zoomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.zoomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.zoomView.bottomAnchor.constraint(equalTo: self.tableView.bottomAnchor).isActive = true
         
         NSLayoutConstraint.activate([
             //topConstraintView,
@@ -110,8 +134,6 @@ class ProfileViewController: UIViewController {
             trailingConstraintTable,
             bottomConstraintTable
         ].compactMap({ $0 }))
-        
-        //print(delegate.statusTextField.isHidden)
         
     }
     
@@ -128,16 +150,6 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, ProfileHeaderViewProtocol {
     
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        //view.backgroundColor = .red
-//        let p = ProfileHeaderView()
-//        view.addSubview(p)
-//        view.layoutIfNeeded()
-//    }
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        if section == 0 {
@@ -148,8 +160,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //print(indexPath.row)
         
         //if indexPath.section == 0 {
         if indexPath.row == 0 {
@@ -170,23 +180,49 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
                                                         image: article.image,
                                                         likes: article.likes,
                                                         views: article.views)
-            //tableView.numberOfSections
+            
             cell.setup(with: viewModel)
+            
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(sender:)))
+            
+            longPress.minimumPressDuration = 0.7
+            cell.addGestureRecognizer(longPress)
+            
             return cell
         }
         
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 200
-//        }
-//        //return nil
-//    }
+    @objc private func longPressCell(sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == .began {
+            //let pressIndexPath = self.tableView.indexPathForRow(at: sender.location(in: self.tableView))
+            //let pressCell = self.tableView.cellForRow(at: pressIndexPath!)
+            //let cell = pressCell as! PostTableViewCell
+            
+            // vibrate
+            //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            AudioServicesPlaySystemSound(1519)
+            //AudioServicesPlaySystemSound(1520)
+            //AudioServicesPlaySystemSound(1521)
+            //UIImageWriteToSavedPhotosAlbum(cell.postImage.image!, self, #selector(saveCompleted), nil)
+        }
+        
+    }
+    
+    @objc func saveCompleted() {
+        print("save finished")
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row > 0 {
+            return 500
+        }
+        return 120
+    }
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //print(delegate.statusTextField.isHidden)
         return self.isHeaderViewExpanded ? 244 : 200
     }
     
@@ -206,21 +242,49 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pro
             let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goToBackView))
             photoViewController.navigationItem.leftBarButtonItem = backButton
             
-            //self.navigationController?.pushViewController(photoViewController, animated: true)
-            //self.show(navigationController, sender: .none)
             #warning("Через push не отображается navigationController, скорее всего я думаю это т.к. в root controller установлены 2 контроллера - LoginViewController и FeedViewController, а ProfileViewController отсутсвует. Пробовал менять в SceneDelegate LoginViewController на ProfileViewController, но тогда главной страницей при запуске приложения становиться ProfileViewController. Также пробовал добавлять - navigationController.viewControllers = [loginViewController, profileViewController], тоже получается ерунда. Вообщем экран пушиться, но без navigationController. Поэтому я его презентовал, а кнопку назад добавил, костыль, но работает) И в следствии всего это естественно отсутствует TabBar")
             //self.navigationController?.pushViewController(photoViewController, animated: true)
             self.present(navigationController, animated: true)
+        } else {
+
+            self.zoomView.isHidden = false
+            
+            var article = self.dataSource[indexPath.row - 1]
+            self.zoomView.setupView(text: article.description, image: article.image)
+            article.views += 1
+            
+            self.dataSource[indexPath.row - 1] = article
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            //self.tableView.reloadData()
+            
+            UIView.animate(withDuration: 0.3) {
+                self.zoomView.alpha = 1
+                self.view.layoutIfNeeded()
+            }
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            self.dataSource.remove(at: indexPath.row - 1)
+            //self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            self.tableView.reloadData()
         }
     }
     
     @objc func goToBackView() {
         self.dismiss(animated: true)
     }
-    
-    //func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //    tableView.tableHeaderView = UIView(frame: .zero)
-    //}
     
     func didTapStatusButton(textFieldIsVisible: Bool, completion: @escaping () -> Void) {
         self.heightConstraint?.constant = textFieldIsVisible ? 244 : 200

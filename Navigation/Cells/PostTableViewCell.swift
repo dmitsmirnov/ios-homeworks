@@ -32,8 +32,9 @@ class PostTableViewCell: UITableViewCell {
     private lazy var stackForLikesAndViews: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
+        stackView.spacing = 0
+        //stackView.distribution = .fillEqually
+        //stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -51,12 +52,14 @@ class PostTableViewCell: UITableViewCell {
         
     }()
     
-    private lazy var postImage: UIImageView = {
+    lazy var postImage: UIImageView = {
         let photoView = UIImageView()
         photoView.translatesAutoresizingMaskIntoConstraints = false
         photoView.backgroundColor = .black
         photoView.contentMode = .scaleAspectFit
         //photoView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        //photoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentFullScreen)))
+        //photoView.isUserInteractionEnabled = true
         return photoView
     }()
     
@@ -70,25 +73,61 @@ class PostTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.textColor = .systemGray
         label.font = UIFont(name: "Calibri", size: 16)
-        //label.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .vertical)
-        //label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        //label.setContentCompressionResistancePriority(UILayoutPriority(250), for: .vertical)
+        //label.setContentHuggingPriority(UILayoutPriority(100), for: .vertical)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
 
     }()
     
-    private lazy var likesLabel: UILabel = {
+    //private let tapLikeGestureRecognizer = UITapGestureRecognizer()
+    
+    lazy var likesLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .clear
         label.numberOfLines = 0
         label.font = UIFont(name: "Calibri", size: 16)
         label.textColor = .black
-        //label.setContentCompressionResistancePriority(UILayoutPriority(750), for: .vertical)
-        //label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
-
+        label.tag = 123
+        label.isUserInteractionEnabled = true
+        
+        //label.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapLike)))
+        
         return label
     }()
+    
+    lazy var likesCountLabel: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .clear
+        label.numberOfLines = 0
+        label.font = UIFont(name: "Calibri", size: 16)
+        label.textColor = .black
+        label.tag = 123
+        label.isUserInteractionEnabled = true
+        
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapLike)))
+        
+        return label
+    }()
+    
+    private func setupGestureRecognizer() {
+        //self.tapLikeGestureRecognizer.addTarget(self, action: #selector(self.tapLike(_:)))
+        //self.likesCountLabel.addGestureRecognizer(self.tapLikeGestureRecognizer)
+        //self.likesLabel.addGestureRecognizer(self.tapLikeGestureRecognizer)
+    }
+
+    @objc func tapLike(_ gestureRecognizer: UITapGestureRecognizer) {
+        //print("tap")
+       let numberLikes = Int(self.likesCountLabel.text!)
+       self.likesCountLabel.text = String(numberLikes!+1)
+    }
+    
+    @objc func presentFullScreen() {
+        //print("123")
+    }
     
     private lazy var viewsLabel: UILabel = {
         let label = UILabel()
@@ -104,6 +143,7 @@ class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
+        //self.setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -116,6 +156,7 @@ class PostTableViewCell: UITableViewCell {
         self.descriptionLabel.text = nil
         self.postImage.image = nil
         self.likesLabel.text = nil
+        self.likesCountLabel.text = nil
         self.viewsLabel.text = nil
     }
     
@@ -130,6 +171,7 @@ class PostTableViewCell: UITableViewCell {
         
         self.backView.addSubview(self.stackForLikesAndViews)
         self.stackForLikesAndViews.addArrangedSubview(self.likesLabel)
+        self.stackForLikesAndViews.addArrangedSubview(self.likesCountLabel)
         self.stackForLikesAndViews.addArrangedSubview(self.viewsLabel)
         
         let backViewConstraints = self.backViewConstraints()
@@ -144,6 +186,9 @@ class PostTableViewCell: UITableViewCell {
                                     + imageConstraint
                                     + descriptionConstraints
                                     + stackLikesAndViewsConstraint)
+        
+        self.likesLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        self.likesCountLabel.widthAnchor.constraint(equalToConstant: 25).isActive = true
         
     }
     
@@ -196,7 +241,8 @@ class PostTableViewCell: UITableViewCell {
         self.authorLabel.text = viewModel.author
         self.descriptionLabel.text = viewModel.description
         self.postImage = self.getImage(img: viewModel.image)
-        self.likesLabel.text = "Likes: \(viewModel.likes)"
+        self.likesLabel.text = "Likes: "
+        self.likesCountLabel.text = String(viewModel.likes)
         self.viewsLabel.text = "Views: \(viewModel.views)"
         
     }

@@ -44,6 +44,7 @@ class AvatarViewController: UIViewController {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(systemName: "clear")
+        image.tintColor = .white
         //image.backgroundColor = .clear
         return image
     }()
@@ -196,16 +197,5 @@ class AvatarViewController: UIViewController {
         
         self.setupGesture()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

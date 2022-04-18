@@ -33,8 +33,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         image.clipsToBounds = true
         
         image.contentMode = .scaleAspectFill
-        
-        //image.image = UIImage(named: "Photos/1.jpg")
+
         return image
     }()
     
@@ -48,6 +47,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     }
    
     private func setupView() {
+        
         self.contentView.addSubview(self.backView)
         
         self.backView.addSubview(self.imageView)
@@ -78,11 +78,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     
     func setup(with viewModel: ViewModel){
-        self.imageView.image = UIImage(named: "Photos/\(viewModel.title)")
+        self.imageView.image = UIImage(named: viewModel.title)
     }
     
     func setup(_ imageString: String) {
-        self.imageView.image = UIImage(named: "Photos/\(imageString)")
+        self.imageView.image = UIImage(named: imageString)
     }
     
 }

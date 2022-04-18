@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 
 class ProfileHeaderView: UIView, UITextFieldDelegate {
@@ -108,6 +109,16 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
         return textField
     }()
     
+    private lazy var animation: CABasicAnimation = {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.06
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 8, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 8, y: self.center.y))
+        return animation
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.drawSelf()
@@ -187,32 +198,36 @@ class ProfileHeaderView: UIView, UITextFieldDelegate {
                 topConstraint, leadingConstraint, trailingConstraint, heightTextFieldConstraint, self.buttonTopConstraint
             ].compactMap({ $0 }))
             
+            self.statusTextField.isHidden = false
+            
         } else {
-            if let viewWithTag = self.viewWithTag(100) {
-                viewWithTag.removeFromSuperview()
-                self.buttonTopConstraint = self.setStatusButton.topAnchor.constraint(equalTo: self.infoStackView.bottomAnchor, constant: 16)
-                NSLayoutConstraint.activate([self.buttonTopConstraint].compactMap({ $0 }))
+            
+            if statusText != "" {
+                
+                if let viewWithTag = self.viewWithTag(100) {
+                    viewWithTag.removeFromSuperview()
+                    self.buttonTopConstraint = self.setStatusButton.topAnchor.constraint(equalTo: self.infoStackView.bottomAnchor, constant: 16)
+                    NSLayoutConstraint.activate([self.buttonTopConstraint].compactMap({ $0 }))
+                }
+                
+                self.statusTextField.isHidden = true
+                self.statusTextField.layer.borderColor = UIColor.black.cgColor
+            
+            } else {
+                self.statusTextField.layer.borderColor = UIColor.red.cgColor
+                self.layer.add(self.animation, forKey: "position")
+                AudioServicesPlaySystemSound(1521)
             }
         }
         
-        
         UIView.animate(withDuration: 0.3, delay: 0.0) {
-            self.statusTextField.isHidden.toggle()
+            //self.statusTextField.isHidden.toggle()
             self.layoutIfNeeded()
             self.layoutSubviews()
         }
         
-        //print(self.delegate?.isHeaderViewExpanded)
-        self.delegate?.isHeaderViewExpanded.toggle()
-        
-        //self.delegate?.updateTable()
-//        self.delegate?.didTapStatusButton(textFieldIsVisible: self.statusTextField.isHidden) { [ weak self ] in
-//            self?.statusTextField.isHidden.toggle()
-//            //self.layoutIfNeeded()
-//            //self.layoutSubviews()
-//            //self.isHeaderViewExpanded = self?.statusTextField.isHidden
-//        }
-    
+        //self.delegate?.isHeaderViewExpanded.toggle()
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createProfileViewController() -> UINavigationController {
         
         let loginViewController = LoginInViewController()
+        //let loginViewController = ProfileViewController()
         //let profileViewController = ProfileViewController()
         //let photosViewController = PhotosViewController()
         
