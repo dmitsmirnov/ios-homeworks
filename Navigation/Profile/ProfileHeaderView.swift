@@ -15,6 +15,8 @@ class ProfileHeaderView: UIView {
         
         super.layoutSubviews()
         
+        self.backgroundColor = .white
+        
         self.addSubview(self.infoStackView)
         self.addSubview(self.setStatusButton)
         
@@ -27,8 +29,8 @@ class ProfileHeaderView: UIView {
         self.labelsStackView.addArrangedSubview(self.statusLabel)
         
         let topConstraint = self.infoStackView.topAnchor.constraint(equalTo: self.topAnchor)
-        let leadingConstraint = self.infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        let trailingConstraint = self.infoStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let leadingConstraint = self.infoStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
+        let trailingConstraint = self.infoStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         
         let imageViewAspectRatio = self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor, multiplier: 1.0)
         
@@ -38,14 +40,13 @@ class ProfileHeaderView: UIView {
         let heightTextFieldConstraint = self.statusTextField.heightAnchor.constraint(equalToConstant: 30)
         
         let topButtonConstraint = self.setStatusButton.topAnchor.constraint(equalTo: self.statusTextField.bottomAnchor, constant: 10)
-        let leadingButtonConstraint = self.setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        let trailingButtonConstraint = self.setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let leadingButtonConstraint = self.setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
+        let trailingButtonConstraint = self.setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16)
         let bottomButtonConstraint = self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         let heightButtonConstraint = self.setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         
-        #warning("не понял как получить frame картинки, что бы вычислить радиус для скругления картинки. Подскажите пожалуйста как его получить frame (bounds) определяется всегда как (0,0,0,0)")
         // self.avatarImageView.layer.cornerRadius =  self.avatarImageView.frame.height / 2
-        self.avatarImageView.layer.cornerRadius = 60
+        //self.avatarImageView.layer.cornerRadius = 60
         
         NSLayoutConstraint.activate([
             topConstraint,
@@ -65,10 +66,18 @@ class ProfileHeaderView: UIView {
             heightButtonConstraint
         ].compactMap({ $0 }))
         
+        // скругление картинки вариант№1
+        // пересчитать фрейм картинки принудительно
+        self.avatarImageView.layoutIfNeeded()
+        self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.height / 2
+        
+        // скругление картинки вариант№2
+        // рассчитать только позиции находящиеся в стеке
+        //DispatchQueue.main.async {
+        //    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.height / 2
+        //}
     }
-    
-    
-    
+     
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -88,7 +97,7 @@ class ProfileHeaderView: UIView {
     
     private lazy var setStatusButton: UIButton = {
         let button = UIButton()
-        button.setTitle("go to play...", for: .normal)
+        button.setTitle("set status...", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 4
@@ -171,9 +180,4 @@ class ProfileHeaderView: UIView {
     
 }
 
-extension UITextField {
-    func indent(size:CGFloat) {
-        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
-        self.leftViewMode = .always
-    }
-}
+

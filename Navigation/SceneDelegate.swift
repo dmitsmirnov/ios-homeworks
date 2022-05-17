@@ -16,9 +16,47 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+       // guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowsScene = (scene as? UIWindowScene) else { return }
+        
+        self.window = UIWindow(windowScene: windowsScene)
+        self.window?.rootViewController = createTabBarController()
+        //UITabBar.appearance().barTintColor = .red
+        self.window?.makeKeyAndVisible()
+        
     }
 
+    func createProfileViewController() -> UINavigationController {
+        
+        let profileViewController = LoginInViewController()
+        profileViewController.title = "Profile"
+        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle"), tag: 0)
+       
+        return UINavigationController(rootViewController: profileViewController)
+        
+    }
+    
+    func createFeedViewController() -> UINavigationController {
+        
+        let feedViewController = FeedViewController()
+        feedViewController.title = "Feed"
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.richtext"), tag: 0)
+    
+        return UINavigationController(rootViewController: feedViewController)
+        
+    }
+    
+    func createTabBarController() -> UITabBarController {
+        
+        let tabBarController = TabBarController()
+        tabBarController.viewControllers = [createProfileViewController(),
+                                            createFeedViewController()]
+        
+        return tabBarController
+        
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
